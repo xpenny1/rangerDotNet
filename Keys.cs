@@ -8,4 +8,5 @@ public class Keys
     public String Prev { get; set; }
     public String Up { get; set; }
     public String Down { get; set; }
+    public String Quit { get; set; }
 }

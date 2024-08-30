@@ -14,19 +14,22 @@ namespace rangerDotNet
         {
             
             FileSelector selector = new FileSelector();
-            FileSystemEntry ent = selector.currentFolder.Self;
-            while (ent.Type == FileType.Folder)
+            FileSystemEntry? ent = selector.currentFolder.Self;
+            while (ent != null && ent.Value.Type == FileType.Folder)
             {
                 ent = selector.Select();
-                if (ent.Type == FileType.Folder)
+                if (ent != null && ent.Value.Type == FileType.Folder)
                 {
-                    System.IO.Directory.SetCurrentDirectory(ent.Path);
+                    System.IO.Directory.SetCurrentDirectory(ent.Value.Path);
                     selector = new FileSelector();
                 }
             }
-            Console.Clear();
-            Console.WriteLine(ent.Path);
-            Console.WriteLine(ent.Name);
+            if (ent != null)
+            {
+                Console.Clear();
+                Console.WriteLine(ent.Value.Path);
+                Console.WriteLine(ent.Value.Name);
+            }
         }
 
    

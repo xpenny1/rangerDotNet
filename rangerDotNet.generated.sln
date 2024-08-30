@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.002.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rangerDotNet", "rangerDotNet.csproj", "{01BA078B-62C5-424A-8675-3FBBBB7AE7AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "rangerDotNet", "rangerDotNet.csproj", "{161119BD-D13E-40CA-A78E-6EEFB3723196}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,10 +11,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{01BA078B-62C5-424A-8675-3FBBBB7AE7AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{01BA078B-62C5-424A-8675-3FBBBB7AE7AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{01BA078B-62C5-424A-8675-3FBBBB7AE7AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{01BA078B-62C5-424A-8675-3FBBBB7AE7AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{161119BD-D13E-40CA-A78E-6EEFB3723196}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{161119BD-D13E-40CA-A78E-6EEFB3723196}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{161119BD-D13E-40CA-A78E-6EEFB3723196}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{161119BD-D13E-40CA-A78E-6EEFB3723196}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

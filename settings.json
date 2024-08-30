@@ -3,6 +3,7 @@
         "Prev": "K",
         "Next": "J",
         "Down": "L",
-        "Up": "H"
+        "Up": "H",
+        "Quit": "Q"
     }
 }

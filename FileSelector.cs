@@ -30,20 +30,20 @@ public class FileSelector
         currentFolder = new Folder(new FileSystemEntry(dirName,dirPath,FileType.Folder), files, entryPaths.Length);
     }
 
-    public FileSystemEntry Select()
+    public FileSystemEntry? Select()
     {
         Keys config = IO.loadSetting(@"C:\Users\canti\Documents\C#\rangerDotNet\settings.json").Keys;
-        IO.renderSelection(this);
+        IO.renderSelectionDynamicallyCentered(this);
         String key = IO.getNextKey().ToString();
         if (key == config.Next)
         {
             selectetEntry = int.Min(currentFolder.FileCount-1,selectetEntry+1);
-            IO.renderSelection(this);
+            IO.renderSelectionDynamicallyCentered(this);
             return Select();
         } else if (key == config.Prev)
         {
             selectetEntry = int.Max(0,selectetEntry-1);
-            IO.renderSelection(this);
+            IO.renderSelectionDynamicallyCentered(this);
             return Select();
         } else if (key == config.Down)
         {
@@ -52,6 +52,9 @@ public class FileSelector
         {
             String root = Path.GetDirectoryName(currentFolder.Self.Path);
             return new FileSystemEntry(Path.GetDirectoryName(root),root,FileType.Folder);
+        } else if (key == config.Quit)
+        {
+            return null;
         }
         return currentFolder.Self;
     }
