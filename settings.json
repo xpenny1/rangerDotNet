@@ -1,9 +1,31 @@
 {
     "Keys": {
-        "Prev": "K",
-        "Next": "J",
-        "Down": "L",
-        "Up": "H",
-        "Quit": "Q"
+        "Prev": "k",
+        "Next": ["j",{"Name": "Down", "Modifiers": "None"}],
+        "Down": "l",
+        "Up": "h",
+        "Quit": "q",
+        "Command": "$"
+    },
+    "Windows": {
+        "Shell": "cmd.exe",
+        "Terminal": "cmd.exe",
+        "CommandReplacements": {
+            "okular": "okular.exe",
+            "ls": "dir"
+        }
+    },
+    "Linux": {
+        "Shell": "bash",
+        "Terminal": "alacritty",
+        "CommandReplacements": {
+        }
+    },
+    "CommandBuild-Ins": {
+        "mv": true,
+        "cp": true
+    },
+    "Style": {
+        "centered": true
     }
 }

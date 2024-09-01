@@ -1,4 +1,5 @@
 using System;
+using System.Diagnostics;
 
 namespace rangerDotNet;
 
@@ -32,29 +33,48 @@ public class FileSelector
 
     public FileSystemEntry? Select()
     {
-        Keys config = IO.loadSetting(@"C:\Users\canti\Documents\C#\rangerDotNet\settings.json").Keys;
+        Settings config = IO.loadSetting(@"C:\Users\canti\Documents\C#\rangerDotNet\settings.json");
         IO.renderSelectionDynamicallyCentered(this);
         String key = IO.getNextKey().ToString();
-        if (key == config.Next)
+        if (config.Next.Any(k => k.KeyString == key))
         {
             selectetEntry = int.Min(currentFolder.FileCount-1,selectetEntry+1);
             IO.renderSelectionDynamicallyCentered(this);
             return Select();
-        } else if (key == config.Prev)
+        } else if (config.Prev.Any(k => k.KeyString == key))
         {
             selectetEntry = int.Max(0,selectetEntry-1);
             IO.renderSelectionDynamicallyCentered(this);
             return Select();
-        } else if (key == config.Down)
+        } else if (config.Down.Any(k => k.KeyString == key))
         {
             return currentFolder.Files[selectetEntry];
-        } else if (key == config.Up)
+        } else if (config.Up.Any(k => k.KeyString == key))
         {
             String root = Path.GetDirectoryName(currentFolder.Self.Path);
             return new FileSystemEntry(Path.GetDirectoryName(root),root,FileType.Folder);
-        } else if (key == config.Quit)
+        } else if (config.Quit.Any(k => k.KeyString == key))
         {
             return null;
+        } else if (config.Command.Any(k => k.KeyString == key))
+        {
+            Console.SetCursorPosition(0,Console.BufferHeight-1);
+            String comm = Console.ReadLine();
+            comm = comm.Replace("%f",currentFolder.Files[selectetEntry].Path);
+            Process cmd = new Process();
+            cmd.StartInfo.FileName = config.Shell;
+            cmd.StartInfo.RedirectStandardInput = true;
+            cmd.StartInfo.RedirectStandardOutput = true;
+            cmd.StartInfo.CreateNoWindow = true;
+            cmd.StartInfo.UseShellExecute = false;
+            cmd.Start();
+
+            cmd.StandardInput.WriteLine(comm);
+            cmd.StandardInput.Flush();
+            cmd.StandardInput.Close();
+            cmd.WaitForExit();
+            Console.WriteLine(cmd.StandardOutput.ReadToEnd());
+            Console.ReadLine();
         }
         return currentFolder.Self;
     }

@@ -1,14 +1,19 @@
 using System;
 using System.ComponentModel;
+using System.ComponentModel.Design;
 using System.Numerics;
+using System.Reflection;
+using System.Text.Json;
+using System.Text.Json.Nodes;
+
 
 namespace rangerDotNet;
 
 public static class IO
 {
-    public static ConsoleKey getNextKey()
+    public static char getNextKey()
     {
-        return Console.ReadKey(true).Key;
+        return Console.ReadKey(true).KeyChar;
     }
     public static void renderSelectionDynamicallyCentered(FileSelector selector)
     {
@@ -69,9 +74,55 @@ public static class IO
 
         }
     }
+    //public static SettingsRaw loadSetting(String configFilePath)
+    //{
+    //    SettingsRaw config = Newtonsoft.Json.JsonConvert.DeserializeObject<SettingsRaw>(System.IO.File.ReadAllText(configFilePath));
+    //    return config;
+    //}
+
+    private static Key readKey(JsonNode node)
+    {
+        if (node.GetType().Equals(typeof(JsonObject)))
+        {
+            return new Key(node["Name"]!.ToString(),KeyModifiers.None);
+        } else 
+        {
+            return new Key(node.ToString());
+        }
+    }
+    private static Key[] readKeysArray(JsonNode nodes)
+    {
+        if (nodes.GetType().Equals(typeof(JsonArray)))
+        {
+            IEnumerable<Key> arr = from node in nodes.AsArray()
+                                   select readKey(node);
+            return arr.ToArray();
+        } else
+        {
+            return [readKey(nodes)];
+        }
+    }
+
     public static Settings loadSetting(String configFilePath)
     {
-        Settings config = Newtonsoft.Json.JsonConvert.DeserializeObject<Settings>(System.IO.File.ReadAllText(configFilePath));
-        return config;
+        string file = System.IO.File.ReadAllText(configFilePath);
+        JsonNode settings = JsonNode.Parse(file)!;
+        JsonNode keys = settings["Keys"]!;
+        JsonNode os = settings["Windows"]!;
+        Dictionary<String,String> commandReplacements = new Dictionary<string, string>();
+        return new Settings(
+            readKeysArray(keys["Prev"]!),
+            readKeysArray(keys["Next"]!),
+            readKeysArray(keys["Up"]!),
+            readKeysArray(keys["Up"]!),
+            readKeysArray(keys["Down"]!),
+            readKeysArray(keys["Command"]!),
+            os["Shell"]!.ToString(),
+            os["Terminal"]!.ToString(),
+            commandReplacements,
+            true,
+            true,
+            Style.Centered
+            );
     }
 }
