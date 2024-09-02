@@ -80,17 +80,17 @@ public static class IO
     //    return config;
     //}
 
-    private static Key readKey(JsonNode node)
+    public static Key readKey(JsonNode node)
     {
         if (node.GetType().Equals(typeof(JsonObject)))
         {
-            return new Key(node["Name"]!.ToString(),KeyModifiers.None);
+            return new Key(node["Name"]!.ToString(),ConsoleModifiers.None);
         } else 
         {
             return new Key(node.ToString());
         }
     }
-    private static Key[] readKeysArray(JsonNode nodes)
+    public static Key[] readKeysArray(JsonNode nodes)
     {
         if (nodes.GetType().Equals(typeof(JsonArray)))
         {
@@ -103,6 +103,20 @@ public static class IO
         }
     }
 
+    //using NUnit.Test;
+    //[Test]
+    //public static void testReadKeys()
+    //{
+    //    JsonNode node = JsonNode.Parse("""
+    //        {
+    //            "Name": "Down",
+    //            "Modifiers": None
+    //        }
+    //    """);
+    //    Key key = readKey(node);
+    //    Assert.AreEqual(key,new Key("Down",KeyModifiers.None));
+    //}
+    
     public static Settings loadSetting(String configFilePath)
     {
         string file = System.IO.File.ReadAllText(configFilePath);

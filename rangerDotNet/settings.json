@@ -1,7 +1,7 @@
 {
     "Keys": {
         "Prev": "k",
-        "Next": ["j",{"Name": "Down", "Modifiers": "None"}],
+        "Next": ["j",{"Name": "DownArrow", "Modifiers": "None"}],
         "Down": "l",
         "Up": "h",
         "Quit": "q",

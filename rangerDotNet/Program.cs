@@ -12,7 +12,7 @@ namespace rangerDotNet
 
         static void Main(string[] args)
         {
-            Settings settings = IO.loadSetting(@"C:\Users\canti\Documents\C#\rangerDotNet\settings.json");
+            Settings settings = IO.loadSetting(@"C:\Users\canti\Documents\C#\rangerDotNet\rangerDotNet\settings.json");
             Console.WriteLine(settings.Next[1].KeyName);
             Console.WriteLine(settings.Prev[0].KeyString);
             Console.WriteLine(settings.Shell);
